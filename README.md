@@ -1,0 +1,1 @@
+# serviceconnector-armtemplate-sample
