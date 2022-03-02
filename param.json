@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "identity": {
+            "value": "/subscriptions/d82d7763-8e12-4f39-a7b6-496a983ec2f4/resourceGroups/yungez-app1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myMI1"
+        },
+        "accessToken": {
+            "value": ""
+        },
+        "webAppId": {
+            "value": "https://management.azure.com/subscriptions/d82d7763-8e12-4f39-a7b6-496a983ec2f4/resourceGroups/yungez-app1/providers/Microsoft.Web/sites/app225?api-version=2021-11-01-preview"
+        },
+        "keyvaultId": {
+            "value": "/subscriptions/d82d7763-8e12-4f39-a7b6-496a983ec2f4/resourceGroups/yungez-app1/providers/Microsoft.KeyVault/vaults/kv225"
+        },
+        "authType": {
+            "value": "systemAssignedIdentity"
+        },
+        "clientType": {
+            "value": "dotnetCore"
+        }
+        // "resourceGroup": {
+        //     "value": "yungez-app1"
+        // }
+    }
+  }

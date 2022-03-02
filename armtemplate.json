@@ -1,0 +1,116 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "identity": {
+            "type": "string"
+        },
+        "accessToken": {
+            "type": "string"
+        },
+        "webAppId": {
+            "type": "string"
+        },
+        "keyvaultId": {
+            "type": "string"
+        },
+        "authType": {
+            "type": "string",
+            "allowedValues": [
+                "systemAssignedIdentity",
+                "userAssignedIdentity",
+                "servicePrincipalSecret",
+                "servicePrincipalCertificate",
+                "secret"
+            ]
+        },
+        "clientType": {
+            "type": "string",
+            "defaultValue": "dotnetCore",
+            "allowedValues": [
+                "none",
+                "dotnet",
+                "dotnetCore",
+                "python",
+                "django",
+                "php",
+                "Nodejs",
+                "java",
+                "go",
+                "springCloudBinding"
+            ]
+        },
+        "connName": {
+            "type": "string",
+            "defaultValue": "[uniqueString(subscription().subscriptionId)]"
+        },
+        // "resourceGroup": {
+        //     "type": "string"
+        // },
+        "location": {
+            "type": "string",
+            "defaultValue": "eastus",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deploymentScripts",
+            "apiVersion": "2020-10-01",
+            "name": "test4",
+            "location": "[resourceGroup().location]",
+            "kind": "AzureCLI",
+            "identity": {
+                "type": "userAssigned",
+                "userAssignedIdentities": {
+                    "[parameters('identity')]": {}
+                }
+            },
+            "properties": {
+                "forceUpdateTag": "1",
+                "azCliVersion": "2.33.1",
+                "environmentVariables": [
+                    {
+                        "name": "ACCESS_TOKEN",
+                        "value": "[parameters('accessToken')]"
+                    },
+                    {
+                        "name": "WEBAPP_ID",
+                        //"value": "[concat('https://management.azure.com', parameters('webAppId'))]"
+                        "value": "[parameters('webAppId')]"
+                    },
+                    {
+                        "name": "KEYVAULT_ID",
+                        "value": "[parameters('keyvaultId')]"
+                    },
+                    {
+                        "name": "AUTH_TYPE",
+                        "value": "[parameters('authType')]"
+                    },
+                    {
+                        "name": "CLIENT_TYPE",
+                        "value": "[parameters('clientType')]"
+                    },
+                    {
+                        "name": "CONN_NAME",
+                        "value": "[parameters('connName')]"
+                    }
+                ],
+                //"scriptContent": "",
+                "primaryScriptUri": ""
+                "supportingScriptUris": [],
+                "timeout": "PT30M",
+                "cleanupPreference": "OnSuccess",
+                "retentionInterval": "P1D"
+            }
+        }
+    ],
+    "outputs": {
+        // "fileUri": {
+        //     "type": "string",
+        //     "value": "[reference(createkeyvaultconnection).outputs.Uri]"
+        // }
+    }
+}
